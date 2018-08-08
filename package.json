@@ -1,0 +1,27 @@
+{
+  "name": "node-easy-notes-client",
+  "version": "1.0.0",
+  "description": "Never miss a thing in life. Take notes quickly. Organise and keep track of all your notes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pactTest": "export NODE_ENV=pactTest && jest --testRegex \"/*(.test.pact.js)\" --runInBand --setupFiles ./pactSetup.js --setupTestFrameworkScriptFile ./pactTestWrapper.js"
+  },
+  "author": "Iris",
+  "license": "ISC",
+  "keywords": [
+    "Express",
+    "RestAPI",
+    "Notes"
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jest": "^23.4.2",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "^5.9.1"
+  }
+}
