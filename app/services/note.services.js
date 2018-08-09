@@ -9,7 +9,7 @@ exports.findAll = (url) => {
     };
 
     return request(options);
-}
+};
 
 exports.create = (url, body) => {
     console.log("Creating a new note...");
@@ -25,7 +25,7 @@ exports.create = (url, body) => {
     };
 
     return request(options);
-}
+};
 
 exports.findOne = (url) => {
     console.log("Getting an existing note with note id...");
@@ -36,7 +36,7 @@ exports.findOne = (url) => {
     };
 
     return request(options);
-}
+};
 
 exports.update = (url, body) => {
     console.log("Updating an existing note...");
@@ -49,4 +49,16 @@ exports.update = (url, body) => {
     };
 
     return request(options);
-}
+};
+
+exports.delete = (url) => {
+    console.log("Deleting an existing note with note id...");
+
+    const options = {
+        method: 'DELETE',
+        uri: url,
+        json: true
+    };
+
+    return request(options);
+};

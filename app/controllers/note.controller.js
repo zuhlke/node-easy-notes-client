@@ -64,14 +64,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    const options = {
-        method: 'DELETE',
-        uri: 'http://easy-notes-app:8080/notes/' + req.params.noteId,
-        json: true
-    };
-
-    request(options)
-        .then(response => {
+    service.delete('http://easy-notes-app:8080/notes/' + req.params.noteId).then(response => {
             if (!response) {
                 return res.status(404).send({
                     message: "Note not found with id " + req.params.noteId
