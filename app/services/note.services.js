@@ -1,7 +1,6 @@
 const request = require('request-promise');
-const url = 'http://localhost:8989';
 
-exports.findAll = () => {
+exports.findAll = (url) => {
     console.log("Getting all the notes...");
 
     const options = {

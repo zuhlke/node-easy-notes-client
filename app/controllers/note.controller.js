@@ -26,7 +26,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    service.findAll().then(notes => {
+    service.findAll('http://easy-notes-app:8080/notes').then(notes => {
          res.send(notes);
     }).catch(err => {
          res.status(500).send({
