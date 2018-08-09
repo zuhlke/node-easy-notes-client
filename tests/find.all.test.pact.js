@@ -13,19 +13,18 @@ describe('The API', () => {
         beforeEach(() => {
             const interaction = {
                 uponReceiving: 'a get request to get all notes',
-                    withRequest: {
-                        method:  'GET',
-                        path:  '/notes',
-                        query:  '',
-                        headers: {
-                            Accept: 'application/json'
-                        }
+                withRequest: {
+                    method: 'GET',
+                    path: '/notes',
+                    headers: {
+                        Accept: 'application/json'
+                    }
+                },
+                willRespondWith: {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    willRespondWith: {
-                        status: 200,
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
                     body: EXPECTED_BODY
                 }
             };
@@ -38,7 +37,7 @@ describe('The API', () => {
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })
-            .then(done);
+                .then(done);
         });
     });
 });

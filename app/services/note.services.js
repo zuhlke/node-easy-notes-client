@@ -10,3 +10,19 @@ exports.findAll = (url) => {
 
     return request(options);
 }
+
+exports.create = (url, body) => {
+    console.log("Creating a new notes...");
+
+    const options = {
+        method: 'POST',
+        uri: url + '/notes',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        json: true,
+        body: body
+    };
+
+    return request(options);
+}
