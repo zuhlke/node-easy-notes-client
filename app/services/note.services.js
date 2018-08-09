@@ -4,7 +4,7 @@ exports.findAll = (url) => {
     console.log("Getting all the notes...");
 
     const options = {
-        uri: url + '/notes',
+        uri: url,
         json: true
     };
 
@@ -16,7 +16,7 @@ exports.create = (url, body) => {
 
     const options = {
         method: 'POST',
-        uri: url + '/notes',
+        uri: url,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -27,12 +27,23 @@ exports.create = (url, body) => {
     return request(options);
 }
 
-exports.update = (url, noteId, body) => {
+exports.findOne = (url) => {
+    console.log("Getting an existing note with note id...");
+
+    const options = {
+        uri: url,
+        json: true
+    };
+
+    return request(options);
+}
+
+exports.update = (url, body) => {
     console.log("Updating an existing note...");
 
     const options = {
         method: 'PUT',
-        uri: url + '/notes/' + noteId,
+        uri: url,
         json: true,
         body: body
     };

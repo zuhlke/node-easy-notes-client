@@ -35,7 +35,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns newly created note', done => {
-            create(url, EXPECTED_BODY[0])
+            create(url + '/notes', EXPECTED_BODY[0])
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })

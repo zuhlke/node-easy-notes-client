@@ -1,21 +1,21 @@
 const Pact = require('@pact-foundation/pact');
-const findAll = require('../app/services/note.services.js').findAll;
+const findOne = require('../app/services/note.services.js').findOne;
 
 describe('The API', () => {
     const url = 'http://localhost:8989';
 
     // Copy this block once per interaction under test
-    describe('Receive notes when a get request is sent to /notes', () => {
+    describe('Retrieve the note when a get request is sent to /notes with a node id', () => {
         const EXPECTED_BODY = [{
             title: "first notes",
             content: "Wa hahaha"
         }];
         beforeEach(() => {
             const interaction = {
-                uponReceiving: 'a get request to get all notes',
+                uponReceiving: 'a get request to get a specific note with note id',
                 withRequest: {
                     method: 'GET',
-                    path: '/notes',
+                    path: '/notes/1',
                     headers: {
                         Accept: 'application/json'
                     }
@@ -33,7 +33,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns all notes', done => {
-            findAll(url + '/notes')
+            findOne(url + '/notes/1')
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })

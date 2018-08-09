@@ -28,13 +28,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    const options = {
-        uri: 'http://easy-notes-app:8080/notes/' + req.params.noteId,
-        json: true
-    };
-
-    request(options)
-        .then(note => {
+    service.findOne('http://easy-notes-app:8080/notes/' + req.params.noteId).then(note => {
             if (!note) {
                 return res.status(404).send({
                     message: "Note not found with id " + req.params.noteId
@@ -55,7 +49,7 @@ exports.update = (req, res) => {
         });
     }
 
-    service.update(url, req.params.noteId, req.body).then(note => {
+    service.update('http://easy-notes-app:8080/notes/' + req.params.noteId, req.body).then(note => {
         if (!note) {
             return res.status(404).send({
                 message: "Note not found with id " + req.params.noteId

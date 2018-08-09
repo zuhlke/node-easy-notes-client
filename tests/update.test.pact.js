@@ -35,7 +35,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns the updated note', done => {
-            update(url, '1', EXPECTED_BODY[0])
+            update(url + '/notes/1', EXPECTED_BODY[0])
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })
