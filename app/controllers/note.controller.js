@@ -12,7 +12,7 @@ exports.create = (req, res) => {
 
     const options = {
         method: 'POST',
-        uri: 'http://localhost:3000/notes',
+        uri: 'http://easy-notes-app:8080/notes',
         json: true,
         body: req.body
     };
@@ -29,7 +29,7 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     const options = {
-        uri: 'http://localhost:3000/notes',
+        uri: 'http://easy-notes-app:8080/notes',
         json: true
     };
 
@@ -45,7 +45,7 @@ exports.findAll = (req, res) => {
 
 exports.findOne = (req, res) => {
     const options = {
-        uri: 'http://localhost:3000/notes/' + req.params.noteId,
+        uri: 'http://easy-notes-app:8080/notes/' + req.params.noteId,
         json: true
     };
 
@@ -73,7 +73,7 @@ exports.update = (req, res) => {
 
     const options = {
         method: 'PUT',
-        uri: 'http://localhost:3000/notes/' + req.params.noteId,
+        uri: 'http://easy-notes-app:8080/notes/' + req.params.noteId,
         json: true,
         body: req.body
     };
@@ -97,7 +97,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const options = {
         method: 'DELETE',
-        uri: 'http://localhost:3000/notes/' + req.params.noteId,
+        uri: 'http://easy-notes-app:8080/notes/' + req.params.noteId,
         json: true
     };
 
