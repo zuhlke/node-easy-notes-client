@@ -1,5 +1,5 @@
 FROM node:8.9.4
-EXPOSE 8080
+EXPOSE 8081
 
 WORKDIR /opt/easy-notes-client
 
