@@ -55,23 +55,14 @@ exports.update = (req, res) => {
         });
     }
 
-    const options = {
-        method: 'PUT',
-        uri: 'http://easy-notes-app:8080/notes/' + req.params.noteId,
-        json: true,
-        body: req.body
-    };
-
-
-    request(options)
-        .then(note => {
-            if (!note) {
-                return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
-                });
-            }
-            res.send(note);
-        }).catch(err => {
+    service.update(url, req.params.noteId, req.body).then(note => {
+        if (!note) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.noteId
+            });
+        }
+        res.send(note);
+    }).catch(err => {
         return res.status(500).send({
             message: err.message
         });

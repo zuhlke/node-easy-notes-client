@@ -12,7 +12,7 @@ exports.findAll = (url) => {
 }
 
 exports.create = (url, body) => {
-    console.log("Creating a new notes...");
+    console.log("Creating a new note...");
 
     const options = {
         method: 'POST',
@@ -20,6 +20,19 @@ exports.create = (url, body) => {
         headers: {
             'Content-Type': 'application/json'
         },
+        json: true,
+        body: body
+    };
+
+    return request(options);
+}
+
+exports.update = (url, noteId, body) => {
+    console.log("Updating an existing note...");
+
+    const options = {
+        method: 'PUT',
+        uri: url + '/notes/' + noteId,
         json: true,
         body: body
     };
