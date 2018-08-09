@@ -1,6 +1,6 @@
 const path = require('path');
 const { Pact } = require('@pact-foundation/pact');
-​
+
 global.port = 8989;
 global.provider = new Pact({
   port: global.port,
@@ -9,6 +9,6 @@ global.provider = new Pact({
   spec: 2,
   cors: true,
   pactfileWriteMode: 'update',
-  consumer: /* the name of your consumer */,
-  provider: /* the name of your provider */
+  consumer: 'easy-notes-client',
+  provider: 'easy-notes-app'
 });

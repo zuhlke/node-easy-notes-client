@@ -1,9 +1,7 @@
 const request = require('request-promise');
+const service = require('../services/note.services.js');
 
 exports.create = (req, res) => {
-    console.log("Creating a note...");
-    console.log(req);
-
     if(!req.body) {
         return res.status(400).send({
             message: "Note cannot be empty."
@@ -28,18 +26,12 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const options = {
-        uri: 'http://easy-notes-app:8080/notes',
-        json: true
-    };
-
-    request(options)
-    .then(notes => {
-        res.send(notes);
+    service.findAll().then(notes => {
+         res.send(notes);
     }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving notes."
-        });
+         res.status(500).send({
+             message: err.message || "Some error occurred while retrieving notes."
+         });
     });
 };
 
