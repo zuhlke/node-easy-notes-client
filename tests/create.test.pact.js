@@ -1,5 +1,5 @@
 const Pact = require('@pact-foundation/pact');
-const create = require('../app/services/note.services.js').create;
+const create = require('../app/services/note.service.js').create;
 
 describe('The API', () => {
     const url = 'http://localhost:8989';
@@ -12,6 +12,7 @@ describe('The API', () => {
         }];
         beforeEach(() => {
             const interaction = {
+                state: 'Has no notes',
                 uponReceiving: 'a post request to create a new note',
                 withRequest: {
                     method: 'POST',

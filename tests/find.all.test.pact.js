@@ -1,5 +1,5 @@
 const Pact = require('@pact-foundation/pact');
-const findAll = require('../app/services/note.services.js').findAll;
+const findAll = require('../app/services/note.service.js').findAll;
 
 describe('The API', () => {
     const url = 'http://localhost:8989';
@@ -12,6 +12,7 @@ describe('The API', () => {
         }];
         beforeEach(() => {
             const interaction = {
+                state: 'Has only one note',
                 uponReceiving: 'a get request to get all notes',
                 withRequest: {
                     method: 'GET',

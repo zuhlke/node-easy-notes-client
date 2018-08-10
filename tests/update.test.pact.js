@@ -1,5 +1,5 @@
 const Pact = require('@pact-foundation/pact');
-const update = require('../app/services/note.services.js').update;
+const update = require('../app/services/note.service.js').update;
 
 describe('The API', () => {
     const url = 'http://localhost:8989';
@@ -12,6 +12,7 @@ describe('The API', () => {
         }];
         beforeEach(() => {
             const interaction = {
+                state: 'Have a note with id 1',
                 uponReceiving: 'a request to update an existing note',
                 withRequest: {
                     method: 'PUT',

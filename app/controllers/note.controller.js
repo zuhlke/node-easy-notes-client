@@ -1,5 +1,5 @@
 const request = require('request-promise');
-const service = require('../services/note.services.js');
+const service = require('../services/note.service.js');
 
 exports.create = (req, res) => {
     if (!req.body) {

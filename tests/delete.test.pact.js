@@ -1,5 +1,5 @@
 const Pact = require('@pact-foundation/pact');
-const deleteOne = require('../app/services/note.services.js').delete;
+const deleteOne = require('../app/services/note.service.js').delete;
 
 describe('The API', () => {
     const url = 'http://localhost:8989';
@@ -8,6 +8,7 @@ describe('The API', () => {
     describe('Delete the note when a delete request is sent to /notes with a node id', () => {
         beforeEach(() => {
             const interaction = {
+                state: 'Have a note with id 1',
                 uponReceiving: 'a delete request to delete a specific note with note id',
                 withRequest: {
                     method: 'DELETE',

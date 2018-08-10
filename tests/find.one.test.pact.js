@@ -1,5 +1,5 @@
 const Pact = require('@pact-foundation/pact');
-const findOne = require('../app/services/note.services.js').findOne;
+const findOne = require('../app/services/note.service.js').findOne;
 
 describe('The API', () => {
     const url = 'http://localhost:8989';
@@ -12,6 +12,7 @@ describe('The API', () => {
         }];
         beforeEach(() => {
             const interaction = {
+                state: 'Have a note with id 1',
                 uponReceiving: 'a get request to get a specific note with note id',
                 withRequest: {
                     method: 'GET',
