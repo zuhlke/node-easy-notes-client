@@ -1,8 +1,9 @@
 const Pact = require('@pact-foundation/pact');
-const findOne = require('../app/services/note.service.js').findOne;
+const url = 'http://localhost:8989';
+const service = require('../app/services/note.service.js');
+const findOne = service.note('http://localhost:8989/notes').findOne;
 
 describe('The API', () => {
-    const url = 'http://localhost:8989';
 
     // Copy this block once per interaction under test
     describe('Retrieve the note when a get request is sent to /notes with a node id', () => {
@@ -34,7 +35,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns the note', done => {
-            findOne(url + '/notes/1')
+            findOne('1')
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })

@@ -1,27 +1,28 @@
 const Pact = require('@pact-foundation/pact');
 const url = 'http://localhost:8989';
 const service = require('../app/services/note.service.js');
-const update = service.note('http://localhost:8989/notes').update;
+const deleteOne = service.note('http://localhost:8989/notes').deleteOne;
 
 describe('The API', () => {
 
     // Copy this block once per interaction under test
-    describe('Update note if exists', () => {
-        const EXPECTED_BODY = [{
-            title: "first notes",
-            content: "Wa hahaha"
-        }];
+    describe('Delete the note when a delete request is sent to /notes with a node id', () => {
+        const EXPECTED_BODY = {
+            message: "Note deleted successfully.",
+            note: {
+                title: "first notes",
+                content: "Wa hahaha"
+            }
+        };
         beforeEach(() => {
             const interaction = {
                 state: 'Have a note with id 1',
-                uponReceiving: 'a request to update an existing note',
+                uponReceiving: 'a delete request to delete a specific note with note id',
                 withRequest: {
-                    method: 'PUT',
+                    method: 'DELETE',
                     path: '/notes/1',
-                    body: EXPECTED_BODY[0],
                     headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
+                        Accept: 'application/json'
                     }
                 },
                 willRespondWith: {
@@ -36,8 +37,8 @@ describe('The API', () => {
         });
 
         // add expectations
-        it('Returns the updated note', done => {
-            update('1', EXPECTED_BODY[0])
+        it('Delete the note', done => {
+            deleteOne('1')
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })

@@ -1,8 +1,9 @@
 const Pact = require('@pact-foundation/pact');
-const findAll = require('../app/services/note.service.js').findAll;
+const url = 'http://localhost:8989';
+const service = require('../app/services/note.service.js');
+const findAll = service.note('http://localhost:8989/notes').findAll;
 
 describe('The API', () => {
-    const url = 'http://localhost:8989';
 
     // Copy this block once per interaction under test
     describe('Receive notes when a get request is sent to /notes', () => {
@@ -34,7 +35,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns all notes', done => {
-            findAll(url + '/notes')
+            findAll()
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })

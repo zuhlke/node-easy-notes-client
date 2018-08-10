@@ -1,18 +1,22 @@
 const Pact = require('@pact-foundation/pact');
-const deleteOne = require('../app/services/note.service.js').delete;
+const url = 'http://localhost:8989';
+const service = require('../app/services/note.service.js');
+const deleteAll = service.note('http://localhost:8989/notes').deleteAll;
 
 describe('The API', () => {
-    const url = 'http://localhost:8989';
 
     // Copy this block once per interaction under test
-    describe('Delete the note when a delete request is sent to /notes with a node id', () => {
+    describe('Delete all notes when a delete request is sent to /notes without a node id', () => {
+        const EXPECTED_BODY = [{
+            message: "All notes deleted successfully."
+        }];
         beforeEach(() => {
             const interaction = {
                 state: 'Have a note with id 1',
-                uponReceiving: 'a delete request to delete a specific note with note id',
+                uponReceiving: 'a delete request to delete all notes',
                 withRequest: {
                     method: 'DELETE',
-                    path: '/notes/1',
+                    path: '/notes',
                     headers: {
                         Accept: 'application/json'
                     }
@@ -20,9 +24,9 @@ describe('The API', () => {
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf8'
                     },
-                    body: 'Note deleted successfully.'
+                    body: EXPECTED_BODY
                 }
             };
             return provider.addInteraction(interaction);
@@ -30,9 +34,9 @@ describe('The API', () => {
 
         // add expectations
         it('Delete the note', done => {
-            deleteOne(url + '/notes/1')
+            deleteAll()
                 .then(response => {
-                    expect(response).toEqual('Note deleted successfully.');
+                    expect(response).toEqual(EXPECTED_BODY);
                 })
                 .then(done);
         });

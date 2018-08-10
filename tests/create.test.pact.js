@@ -1,8 +1,9 @@
 const Pact = require('@pact-foundation/pact');
-const create = require('../app/services/note.service.js').create;
+const url = 'http://localhost:8989';
+const service = require('../app/services/note.service.js');
+const create = service.note('http://localhost:8989/notes').create;
 
 describe('The API', () => {
-    const url = 'http://localhost:8989';
 
     // Copy this block once per interaction under test
     describe('Create a note when a post request with a body is sent to /notes', () => {
@@ -36,7 +37,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns newly created note', done => {
-            create(url + '/notes', EXPECTED_BODY[0])
+            create(EXPECTED_BODY[0])
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })

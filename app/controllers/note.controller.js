@@ -1,4 +1,5 @@
 const service = require('../services/note.service.js');
+const note = service.note('http://easy-notes-app:8080/notes')
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -7,18 +8,18 @@ exports.create = (req, res) => {
         });
     }
 
-    service.create('http://easy-notes-app:8080/notes', req.body)
+    note.create(req.body)
         .then(data => {
             res.send({note: data});
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while create note."
+                message: err.message || "Some error occurred while creating your note."
             });
         });
 };
 
 exports.findAll = (req, res) => {
-    service.findAll('http://easy-notes-app:8080/notes')
+    note.findAll()
         .then(notes => {
             res.send({notes: notes});
         }).catch(err => {
@@ -29,7 +30,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    service.findOne('http://easy-notes-app:8080/notes/' + req.params.noteId)
+    note.findOne(req.params.noteId)
         .then(note => {
             if (!note) {
                 return res.status(404).send({
@@ -51,7 +52,7 @@ exports.update = (req, res) => {
         });
     }
 
-    service.update('http://easy-notes-app:8080/notes/' + req.params.noteId, req.body)
+    note.update(req.params.noteId, req.body)
         .then(note => {
             if (!note) {
                 return res.status(404).send({
@@ -67,7 +68,7 @@ exports.update = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    service.deleteAll('http://easy-notes-app:8080/notes')
+    note.deleteAll()
         .then(
             res.send({message: "All notes deleted successfully."}))
         .catch(err => {
@@ -77,8 +78,8 @@ exports.deleteAll = (req, res) => {
         });
 };
 
-exports.delete = (req, res) => {
-    service.delete('http://easy-notes-app:8080/notes/' + req.params.noteId)
+exports.deleteOne = (req, res) => {
+    note.deleteOne(req.params.noteId)
         .then(response => {
             if (!response) {
                 return res.status(404).send({
