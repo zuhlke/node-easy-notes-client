@@ -23,7 +23,7 @@ describe('The API', () => {
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf-8'
                     },
                     body: EXPECTED_BODY
                 }

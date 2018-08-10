@@ -8,7 +8,7 @@ exports.create = (req, res) => {
         });
     }
 
-    request('http://easy-notes-app:8080/notes', req.body).then(data => {
+    service.create('http://easy-notes-app:8080/notes', req.body).then(data => {
         res.send(data);
     }).catch(err => {
         res.status(500).send({
@@ -57,6 +57,16 @@ exports.update = (req, res) => {
         }
         res.send(note);
     }).catch(err => {
+        return res.status(500).send({
+            message: err.message
+        });
+    });
+};
+
+exports.deleteAll = (req, res) => {
+    service.deleteAll('http://easy-notes-app:8080/notes').then(response => {
+            res.send({message: "All notes deleted successfully."});
+        }).catch(err => {
         return res.status(500).send({
             message: err.message
         });

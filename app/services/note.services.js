@@ -51,6 +51,18 @@ exports.update = (url, body) => {
     return request(options);
 };
 
+exports.deleteAll = (url) => {
+    console.log("Deleting all notes...");
+
+    const options = {
+        method: 'DELETE',
+        uri: url,
+        json: true
+    };
+
+    return request(options);
+};
+
 exports.delete = (url) => {
     console.log("Deleting an existing note with note id...");
 
