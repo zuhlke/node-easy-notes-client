@@ -51,10 +51,16 @@
         },
         "body": [
           {
+            "_id": "0001",
             "title": "first notes",
             "content": "Wa hahaha"
           }
-        ]
+        ],
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
       }
     },
     {
