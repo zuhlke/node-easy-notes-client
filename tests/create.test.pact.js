@@ -1,8 +1,8 @@
 const { Pact, Matchers } = require('@pact-foundation/pact');
 const { like } = Matchers;
 const url = require('../jest.config.js').testURL;
-const service = require('../app/services/note.service.js');
-const create = service.note(url + '/notes').create;
+const services = require('../app/services/note.service.js');
+const create = services.noteService(url + '/notes').create;
 
 describe('The API', () => {
 
@@ -12,11 +12,11 @@ describe('The API', () => {
             title: "first notes",
             content: "Wa hahaha"
         };
-        const EXPECTED_RESPONSE_BODY = [{
+        const EXPECTED_RESPONSE_BODY = {
             _id: '0001',
             title: "first notes",
             content: "Wa hahaha"
-        }];
+        };
         beforeEach(() => {
             const interaction = {
                 state: 'Has no notes',
@@ -33,7 +33,7 @@ describe('The API', () => {
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf-8'
                     },
                     body: like(EXPECTED_RESPONSE_BODY)
                 }

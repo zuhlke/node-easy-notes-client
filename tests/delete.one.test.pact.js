@@ -1,7 +1,7 @@
 const Pact = require('@pact-foundation/pact');
-const url = 'http://localhost:8989';
-const service = require('../app/services/note.service.js');
-const deleteOne = service.note('http://localhost:8989/notes').deleteOne;
+const url = require('../jest.config.js').testURL;
+const services = require('../app/services/note.service.js');
+const deleteOne = services.noteService(url + '/notes').deleteOne;
 
 describe('The API', () => {
 
@@ -28,7 +28,7 @@ describe('The API', () => {
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf-8'
                     },
                     body: EXPECTED_BODY
                 }

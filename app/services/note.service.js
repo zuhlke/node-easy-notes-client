@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-exports.note = (url) => {
+exports.noteService = (url) => {
     return {
         findAll: () => {
             console.log("Getting all the notes...");

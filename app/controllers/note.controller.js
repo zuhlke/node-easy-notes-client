@@ -1,5 +1,6 @@
-const service = require('../services/note.service.js');
-const note = service.note('http://easy-notes-app:8080/notes')
+const services = require('../services/note.service.js');
+const appConfig = require('../../config/server.app.config.js');
+const noteService = services.noteService(appConfig.url);
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -8,7 +9,7 @@ exports.create = (req, res) => {
         });
     }
 
-    note.create(req.body)
+    noteService.create(req.body)
         .then(data => {
             res.send({note: data});
         }).catch(err => {
@@ -19,7 +20,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    note.findAll()
+    noteService.findAll()
         .then(notes => {
             res.send({notes: notes});
         }).catch(err => {
@@ -30,7 +31,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    note.findOne(req.params.noteId)
+    noteService.findOne(req.params.noteId)
         .then(note => {
             if (!note) {
                 return res.status(404).send({
@@ -52,7 +53,7 @@ exports.update = (req, res) => {
         });
     }
 
-    note.update(req.params.noteId, req.body)
+    noteService.update(req.params.noteId, req.body)
         .then(note => {
             if (!note) {
                 return res.status(404).send({
@@ -68,7 +69,7 @@ exports.update = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    note.deleteAll()
+    noteService.deleteAll()
         .then(
             res.send({message: "All notes deleted successfully."}))
         .catch(err => {
@@ -79,7 +80,7 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.deleteOne = (req, res) => {
-    note.deleteOne(req.params.noteId)
+    noteService.deleteOne(req.params.noteId)
         .then(response => {
             if (!response) {
                 return res.status(404).send({

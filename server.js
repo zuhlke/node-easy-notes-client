@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organise and keep track of all your notes."});
+    res.json({"message": "Welcome to EasyNotes client. Take notes quickly. Organise and keep track of all your notes."});
 });
 
 app.listen(8081, () => {

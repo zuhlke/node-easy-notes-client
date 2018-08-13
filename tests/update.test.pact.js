@@ -1,16 +1,16 @@
 const Pact = require('@pact-foundation/pact');
-const url = 'http://localhost:8989';
-const service = require('../app/services/note.service.js');
-const update = service.note('http://localhost:8989/notes').update;
+const url = require('../jest.config.js').testURL;
+const services = require('../app/services/note.service.js');
+const update = services.noteService(url + '/notes').update;
 
 describe('The API', () => {
 
     // Copy this block once per interaction under test
     describe('Update note if exists', () => {
-        const EXPECTED_BODY = [{
+        const EXPECTED_BODY = {
             title: "first notes",
             content: "Wa hahaha"
-        }];
+        };
         beforeEach(() => {
             const interaction = {
                 state: 'Have a note with id 1',
@@ -18,7 +18,7 @@ describe('The API', () => {
                 withRequest: {
                     method: 'PUT',
                     path: '/notes/1',
-                    body: EXPECTED_BODY[0],
+                    body: EXPECTED_BODY,
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ describe('The API', () => {
                 willRespondWith: {
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf-8'
                     },
                     body: EXPECTED_BODY
                 }
@@ -37,7 +37,7 @@ describe('The API', () => {
 
         // add expectations
         it('Returns the updated note', done => {
-            update('1', EXPECTED_BODY[0])
+            update('1', EXPECTED_BODY)
                 .then(response => {
                     expect(response).toEqual(EXPECTED_BODY);
                 })
