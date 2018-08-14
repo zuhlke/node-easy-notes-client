@@ -1,5 +1,5 @@
 const { Matchers } = require('@pact-foundation/pact');
-const { eachLike, like, term, integer, iso8601DateTimeWithMillis } = Matchers;
+const { eachLike, like, term, integer, hexadecimal, iso8601DateTimeWithMillis } = Matchers;
 
 const exampleNotes = [
     {
@@ -27,7 +27,7 @@ const requestBodies = [
 
 const responseBodies = [
     {
-        _id: like(exampleNotes[0]._id),
+        _id: hexadecimal(),
         title: like(exampleNotes[0].title),
         content: like(exampleNotes[0].content),
         createdAt: iso8601DateTimeWithMillis(),
@@ -35,7 +35,7 @@ const responseBodies = [
         __v: integer()
     },
     {
-        _id: like(exampleNotes[1]._id),
+        _id: hexadecimal(),
         title: like(exampleNotes[1].title),
         content: like(exampleNotes[1].content),
         createdAt: iso8601DateTimeWithMillis(),

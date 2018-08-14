@@ -46,7 +46,7 @@ describe('The Create API', () => {
     describe('Create a note when a post request with a body is sent to /notes', () => {
 
         it('creates the first note', done => {
-            doTheTest('empty', 0, done);
+            doTheTest('no notes', 0, done);
         });
 
         it('creates the second note', done => {

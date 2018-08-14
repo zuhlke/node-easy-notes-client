@@ -3,14 +3,14 @@ const url = require('../jest.config.js').testURL;
 const services = require('../app/services/note.service.js');
 const findAll = services.noteService(url + '/notes').findAll;
 
-describe('The API', () => {
+describe('The Find All API', () => {
 
     // Copy this block once per interaction under test
     describe('Receive no notes in initial state when a get request is sent to /notes', () => {
         const EXPECTED_BODY = [];
         beforeEach(() => {
             const interaction = {
-                state: 'Has no notes',
+                state: 'no notes',
                 uponReceiving: 'a get request to get all notes',
                 withRequest: {
                     method: 'GET',
@@ -47,7 +47,7 @@ describe('The API', () => {
         }];
         beforeEach(() => {
             const interaction = {
-                state: 'Have a note with id 1',
+                state: 'second note',
                 uponReceiving: 'a get request to get all notes',
                 withRequest: {
                     method: 'GET',
