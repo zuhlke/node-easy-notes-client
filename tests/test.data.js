@@ -44,6 +44,9 @@ const responseBodies = [
     }
 ];
 
+responseBodies[0]._id.data.generate = exampleNotes[0]._id;
+responseBodies[1]._id.data.generate = exampleNotes[1]._id;
+
 module.exports = {
     exampleNotes: exampleNotes,
     requestBodies: requestBodies,

@@ -27,7 +27,7 @@
           "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
-          "_id": "3F",
+          "_id": "1b71b7eeecbd28bac0b3f1ea",
           "title": "First Note",
           "content": "Doe, a deer, a female deer",
           "createdAt": "2015-08-06T16:53:10.123+01:00",
@@ -80,7 +80,7 @@
           "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
-          "_id": "3F",
+          "_id": "28bac0b3f1ea1b71b7eeecdb",
           "title": "Second Note",
           "content": "Ray, a drop of golden sun",
           "createdAt": "2015-08-06T16:53:10.123+01:00",
@@ -113,71 +113,11 @@
       }
     },
     {
-      "description": "a delete request to delete all notes",
-      "providerState": "no notes",
-      "request": {
-        "method": "DELETE",
-        "path": "/notes",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "message": "All notes deleted successfully."
-        }
-      }
-    },
-    {
-      "description": "a delete request to delete all notes",
-      "providerState": "first note",
-      "request": {
-        "method": "DELETE",
-        "path": "/notes",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "message": "All notes deleted successfully."
-        }
-      }
-    },
-    {
-      "description": "a delete request to delete all notes",
-      "providerState": "two notes",
-      "request": {
-        "method": "DELETE",
-        "path": "/notes",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "message": "All notes deleted successfully."
-        }
-      }
-    },
-    {
       "description": "a delete request to delete a specific note with note id",
       "providerState": "two notes",
       "request": {
         "method": "DELETE",
-        "path": "/notes/3F",
+        "path": "/notes/1b71b7eeecbd28bac0b3f1ea",
         "headers": {
           "Accept": "application/json"
         }
@@ -190,7 +130,7 @@
         "body": {
           "message": "Note deleted successfully.",
           "note": {
-            "_id": "3F",
+            "_id": "1b71b7eeecbd28bac0b3f1ea",
             "title": "First Note",
             "content": "Doe, a deer, a female deer",
             "createdAt": "2015-08-06T16:53:10.123+01:00",
@@ -264,6 +204,66 @@
             "content": "Wa hahaha"
           }
         ]
+      }
+    },
+    {
+      "description": "a delete request to delete all notes",
+      "providerState": "no notes",
+      "request": {
+        "method": "DELETE",
+        "path": "/notes",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "message": "All notes deleted successfully."
+        }
+      }
+    },
+    {
+      "description": "a delete request to delete all notes",
+      "providerState": "first note",
+      "request": {
+        "method": "DELETE",
+        "path": "/notes",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "message": "All notes deleted successfully."
+        }
+      }
+    },
+    {
+      "description": "a delete request to delete all notes",
+      "providerState": "two notes",
+      "request": {
+        "method": "DELETE",
+        "path": "/notes",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "message": "All notes deleted successfully."
+        }
       }
     },
     {
