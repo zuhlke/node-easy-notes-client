@@ -38,7 +38,7 @@ function doTheTest(state, subscript, done) {
     .catch(done);
 }
 
-describe('The Delete API', () => {
+describe('The Delete All API', () => {
 
     describe('Delete all notes when a delete request is sent to /notes without a node id', () => {
 
