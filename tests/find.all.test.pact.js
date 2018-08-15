@@ -1,79 +1,65 @@
-const Pact = require('@pact-foundation/pact');
+const { exampleNotes, requestBodies, responseBodies } = require('./test.data.js');
 const url = require('../jest.config.js').testURL;
 const services = require('../app/services/note.service.js');
 const findAll = services.noteService(url + '/notes').findAll;
 
+let EXPECTED_BODY = [];
+
+function setExpectations(state, subscript) {
+    EXPECTED_BODY = responseBodies.slice(0, subscript);
+    const interaction = {
+        state: state,
+        uponReceiving: 'a get request without a note id',
+        withRequest: {
+            method: 'GET',
+            path: '/notes',
+            headers: {
+                Accept: 'application/json'
+            }
+        },
+        willRespondWith: {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: EXPECTED_BODY
+        }
+    };
+    return provider.addInteraction(interaction);
+}
+
+function doTheTest(state, subscript, done) {
+    return setExpectations(state, subscript).then(() => {
+        return findAll();
+    }).then(responses => {
+        expect(responses).toHaveLength(subscript);
+        for(var i = 0; i < subscript; i++) {
+            const response = responses[i];
+            expect(response._id).toEqual(exampleNotes[i]._id);
+            expect(response.title).toEqual(exampleNotes[i].title);
+            expect(response.content).toEqual(exampleNotes[i].content);
+            expect(response.createdAt).toBeTruthy();
+            expect(response.updatedAt).toBeTruthy();
+            expect(response.__v).toBeGreaterThanOrEqual(0);
+        }
+    }).then(done)
+    .catch(done);
+}
+
 describe('The Find All API', () => {
 
-    // Copy this block once per interaction under test
-    describe('Receive no notes in initial state when a get request is sent to /notes', () => {
-        const EXPECTED_BODY = [];
-        beforeEach(() => {
-            const interaction = {
-                state: 'no notes',
-                uponReceiving: 'a get request to get all notes',
-                withRequest: {
-                    method: 'GET',
-                    path: '/notes',
-                    headers: {
-                        Accept: 'application/json'
-                    }
-                },
-                willRespondWith: {
-                    status: 200,
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8'
-                    },
-                    body: EXPECTED_BODY
-                }
-            };
-            return provider.addInteraction(interaction);
+    describe('receive all notes when a get request is sent to /notes without a note id', () => {
+
+        it('will return no notes', done => {
+            doTheTest('no notes', 0, done);
         });
 
-        // add expectations
-        it('Returns all notes', done => {
-            findAll()
-                .then(response => {
-                    expect(response).toEqual(EXPECTED_BODY);
-                })
-                .then(done);
-        });
-    });
-
-    describe('Receive one note in single-note state when a get request is sent to /notes', () => {
-        const EXPECTED_BODY = [{
-            title: "first notes",
-            content: "Wa hahaha"
-        }];
-        beforeEach(() => {
-            const interaction = {
-                state: 'second note',
-                uponReceiving: 'a get request to get all notes',
-                withRequest: {
-                    method: 'GET',
-                    path: '/notes',
-                    headers: {
-                        Accept: 'application/json'
-                    }
-                },
-                willRespondWith: {
-                    status: 200,
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8'
-                    },
-                    body: EXPECTED_BODY
-                }
-            };
-            return provider.addInteraction(interaction);
+        it('will return first note', done => {
+            doTheTest('first note', 1, done);
         });
 
-        // add expectations
-        it('Returns all notes', done => {
-            findAll()
-                .then(response => {
-                    expect(response).toEqual(EXPECTED_BODY);
-                })
-                .then(done);
+        it('will return two notes', done => {
+            doTheTest('two notes', 2, done);
         });
     });
 });

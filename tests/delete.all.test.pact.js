@@ -40,7 +40,7 @@ function doTheTest(state, subscript, done) {
 
 describe('The Delete All API', () => {
 
-    describe('Delete all notes when a delete request is sent to /notes without a node id', () => {
+    describe('delete all notes when a delete request is sent to /notes without a node id', () => {
 
         it('will delete no notes', done => {
             doTheTest('no notes', 0, done);
