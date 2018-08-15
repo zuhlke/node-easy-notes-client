@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "tests",
-    "pactTest": "rm -f pacts/* && export NODE_ENV=pactTest && jest --testRegex \"/*(.test.pact.js)\" --runInBand --detectOpenHandles --setupFiles ./pactSetup.js --setupTestFrameworkScriptFile ./pactTestWrapper.js"
+    "pactTest": "rm -f pacts/* && export NODE_ENV=pactTest && jest --testRegex \"/*(.test.pact.js)\" --runInBand --detectOpenHandles --setupFiles ./pactSetup.js --setupTestFrameworkScriptFile ./pactTestWrapper.js",
+    "pactTest:publish": "node tests/publish.js"
   },
   "author": "Iris",
   "license": "ISC",
