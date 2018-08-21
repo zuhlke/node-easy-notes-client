@@ -2,6 +2,7 @@ const { exampleNotes, requestBodies, responseBodies } = require('./test.data.js'
 const url = require('../jest.config.js').testURL;
 const services = require('../app/services/note.service.js');
 const create = services.noteService(url + '/notes').create;
+const matchers = require("@pact-foundation/pact/dsl/matchers");
 
 function setExpectations(state, subscript) {
     const interaction = {
@@ -19,7 +20,10 @@ function setExpectations(state, subscript) {
         willRespondWith: {
             status: 200,
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': matchers.term({
+                    matcher: 'application/json;[ ]{0,}charset=(utf|UTF)-8',
+                    generate: 'application/json; charset=utf-8'
+                })
             },
             body: responseBodies[subscript]
         }

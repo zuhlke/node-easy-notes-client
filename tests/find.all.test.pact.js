@@ -1,7 +1,8 @@
-const { exampleNotes, requestBodies, responseBodies } = require('./test.data.js');
+const { exampleNotes, responseBodies } = require('./test.data.js');
 const url = require('../jest.config.js').testURL;
 const services = require('../app/services/note.service.js');
 const findAll = services.noteService(url + '/notes').findAll;
+const matchers = require("@pact-foundation/pact/dsl/matchers");
 
 let EXPECTED_BODY = [];
 
@@ -20,7 +21,10 @@ function setExpectations(state, subscript) {
         willRespondWith: {
             status: 200,
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'Content-Type': matchers.term({
+                    matcher: 'application/json;[ ]{0,}charset=(utf|UTF)-8',
+                    generate: 'application/json; charset=utf-8'
+                })
             },
             body: EXPECTED_BODY
         }
