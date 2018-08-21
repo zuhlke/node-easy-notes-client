@@ -62,3 +62,5 @@ typings/
 .idea/
 node-easy-notes-client.iml
 package-lock.json
+
+pacts
