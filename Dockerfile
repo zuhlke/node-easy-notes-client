@@ -5,6 +5,7 @@ WORKDIR /opt/easy-notes-client
 
 COPY server.js package.json ./
 COPY app ./app/
+COPY config ./config/
 
 RUN npm install
 
