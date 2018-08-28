@@ -1,0 +1,66 @@
+apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pact-broker
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pact-broker
+    spec:
+      containers:
+      - name: pact-broker
+        image: dius/pact-broker:latest
+        imagePullPolicy: Always
+        ports:
+        - name: api
+          containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 100m
+          requests:
+            memory: 256Mi
+            cpu: 50m
+#        envFrom:
+#        - configMapRef:
+#            name: pact-broker-config
+        env:
+        - name: PACT_BROKER_DATABASE_HOST
+          value: "localhost"
+        - name: PACT_BROKER_DATABASE_NAME
+          value: "pactbroker"
+        - name: PACT_BROKER_DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        - name: PACT_BROKER_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
+      - image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=zuhlke-kubernetes-codelab:europe-west2:pactbroker-postgres=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+        - name: ssl-certs
+          mountPath: /etc/ssl/certs
+        - name: cloudsql
+          mountPath: /cloudsql
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials
+      - name: ssl-certs
+        hostPath:
+          path: /etc/ssl/certs
+      - name: cloudsql
+        emptyDir:
