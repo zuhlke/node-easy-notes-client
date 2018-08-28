@@ -65,9 +65,9 @@ Now connect a browser to http://localhost:80. There are no pacts shown.
 
 Add the following entry to the scripts object in package.json on the consumer side:
 ```
-"pactTest:publish": "node tests/publish.js"
+"pactTest:publish-local": "node tests/publish-local.js"
 ```
-Add the file `tests/publish.js` (contents in https://github.com/pact-foundation/pact-js/blob/master/examples/e2e/test/publish.js).
+Add the file `tests/publish-local.js` (contents in https://github.com/pact-foundation/pact-js/blob/master/examples/e2e/test/publish-local.js).
 
 Delete the following properties:
 * pactBrokerUsername

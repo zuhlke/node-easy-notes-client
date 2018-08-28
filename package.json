@@ -6,7 +6,8 @@
   "scripts": {
     "test": "tests",
     "pactTest": "rm -f pacts/* && export NODE_ENV=pactTest && jest --testRegex \"/*(.test.pact.js)\" --runInBand --detectOpenHandles --setupFiles ./pactSetup.js --setupTestFrameworkScriptFile ./pactTestWrapper.js",
-    "pactTest:publish": "node tests/publish.js"
+    "pactTest:publish-local": "node tests/publish-local.js",
+    "pactTest:publish-gke": "node tests/publish-gke.js"
   },
   "author": "Iris",
   "license": "ISC",
