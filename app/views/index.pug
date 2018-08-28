@@ -1,0 +1,9 @@
+extends layout
+
+block content   
+
+    .container-fluid
+        form(method="GET")
+        h1=title
+        p=message
+        button(id="Refresh" class="button" onclick="refresh()")="Refresh"
