@@ -6,4 +6,12 @@ block content
         form(method="GET")
         h1=title
         p=message
-        button(id="Refresh" class="button" onclick="refresh()")="Refresh"
+        button(id="Refresh" class="button" onclick="location.reload(true)")="Refresh"
+        button(id="NewNote" class="button" onclick="editNote()")="New Note"
+        button(id="DeleteAll" class="button" onclick="deleteAllNotes()")="Delete All"
+        p
+        - var notes = [{title: "First Note", content: "something" }, { title: "Second Note", content: "something else" }];
+        each note in notes
+            p=note.title
+        else
+            p="There are no notes currently - go on, create one!"
