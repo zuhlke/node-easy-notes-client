@@ -104,7 +104,7 @@ exports.displayAll = (req, res) => {
               message: 'Welcome to EasyNotes client. Take notes quickly. Organise and keep track of all your notes.',
               notes: notes});
       }).catch(err => {
-          res.render("index", {
+          res.status(500).render("index", {
               title: "Easy Notes",
               message: "Oops!",
               error: err.message
@@ -128,12 +128,12 @@ exports.displayOne = (req, res) => {
                 });
             }
         }).catch(err => {
-        return res.render("note", {
-            title: "Easy Notes",
-            message: "Oops!",
-            error: err.message
+            return res.status(500).render("note", {
+                title: "Easy Notes",
+                message: "Oops!",
+                error: err.message
+            });
         });
-    })
 };
 
 exports.save = (req, res) => {
@@ -152,17 +152,16 @@ exports.save = (req, res) => {
                 note: note
             });
         }).catch(err => {
-        res.render("save", {
-            title: "Easy Notes",
-            message: "Some error occurred while creating your note.",
-            error: err.message
+            res.status(500).render("save", {
+                title: "Easy Notes",
+                message: "Some error occurred while creating your note.",
+                error: err.message
+            });
         });
-    });
 };
 
-exports.new = (req, res) => {
-    res.render("new", {
-        title: "Easy Notes",
-        message: "Create a new note!",
+exports.newNote = (req, res) => {
+    res.render("editNote", {
+        title: "Easy Notes"
     });
 };

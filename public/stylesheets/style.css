@@ -11,23 +11,15 @@
 /* general styles */
 
 body {
-  background: #000000;
-  color: #eeeeee;
+    background: #000000;
+    color: #eeeeee;
 }
 
 html, body, .container-fluid, .row-fluid {
-  height: 96%;
+    height: 96%;
 }
 
-/* Boostrap overrides */
-
-.form-control {
-  width: 15%;
-  min-width: 150px;
-  float: right;
-  margin-top: 10px;
-  margin-right: 5px;
-}
+/* Custom styles */
 
 .button {
     background-color: #4CAF50;
@@ -42,6 +34,16 @@ html, body, .container-fluid, .row-fluid {
 
 .button:hover {
     background-color: green;
+}
+
+/* Bootstrap overrides */
+
+.form-control {
+  width: 15%;
+  min-width: 150px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 5px;
 }
 
 .btn {

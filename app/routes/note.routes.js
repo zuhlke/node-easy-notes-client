@@ -1,10 +1,10 @@
 module.exports = (app) => {
     const notes = require('../controllers/note.controller.js');
 
-    app.get('/', notes.displayAll);
+    app.get('/index', notes.displayAll);
     app.get('/notes', notes.findAll);
     app.post('/notes', notes.create);
-    app.get('/new', notes.new);
+    app.get('/newNote', notes.newNote);
     app.post('/save', notes.save);
     app.get('/notes/:noteId', notes.findOne);
     app.get('/note/:noteId', notes.displayOne);

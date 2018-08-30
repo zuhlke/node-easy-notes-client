@@ -15,12 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'pug');
 
-// app.get('/', (req, res) => {
-//     res.render('index', {
-//         title: 'Easy Notes',
-//         message: 'Welcome to EasyNotes client. Take notes quickly. Organise and keep track of all your notes.'
-//     });
-// });
+app.get('/', (req, res) => {
+    res.redirect('index');
+});
 
 app.listen(8081, () => {
     console.log("Server is listening on port 8081");

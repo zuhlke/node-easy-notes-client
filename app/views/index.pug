@@ -6,14 +6,17 @@ block content
             h1=title
             p=message
             form(method="GET")
-                button(id="Refresh" class="button")="Refresh"
-                a(id="NewNote" class="button" href="new")="New Note"
-                a(id="DeleteAll" class="button")="Delete All"
+                p
+                button(id="Refresh" type="button" class="button" onclick="location.reload()")="Refresh"
+                button(id="NewNote" type="button" class="button" onclick="location.href='newNote'")="New Note"
+                button(id="DeleteAll" type="button" class="button" onclick="location.href='confirmDeleteAll'")="Delete All"
                 p
                 if error
-                    p= error
+                    p=error
                 else
+                    ol
                     each note in notes
-                        a(href="note/" + note._id) #{note.title}
+                        li
+                            a(href="note/" + note._id) #{note.title}
                     else
-                        p= "There are no notes!"
+                        p="There are no notes!"

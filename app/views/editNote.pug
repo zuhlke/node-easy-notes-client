@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .container-fluid
+        fieldset
+            h1=title
+            form(method=method)
+                p="Note Title"
+                input(id="title" name="title")
+                p
+                p="Note Body"
+                textarea(id="content" name="content")
+                p
+                button(id="Cancel" type="reset" class="button" onclick="location.back()")="Cancel"
+                button(id="Save" type="button" class="button" onclick="location.href='save'")="Save"
+                button(id="Reset" type="reset" class="button")="Reset"
+                button(id="Delete" type="button" class="button" onclick="location.href='confirmDelete'")="Delete"
+                p
+                if error
+                    p=error
