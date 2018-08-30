@@ -95,3 +95,74 @@ exports.deleteOne = (req, res) => {
         });
     });
 };
+
+exports.displayAll = (req, res) => {
+  noteService.findAll()
+      .then(notes => {
+          res.render("index", {
+              title: 'Easy Notes',
+              message: 'Welcome to EasyNotes client. Take notes quickly. Organise and keep track of all your notes.',
+              notes: notes});
+      }).catch(err => {
+          res.render("index", {
+              title: "Easy Notes",
+              message: "Oops!",
+              error: err.message
+          });
+      })
+};
+
+exports.displayOne = (req, res) => {
+    noteService.findOne(req.params.noteId)
+        .then(note => {
+            if (!note) {
+                res.render("note", {
+                    title: "Easy Notes",
+                    message: "Note not found with id " + req.params.noteId
+                });
+            } else {
+                res.render("note", {
+                    title: "Easy Notes",
+                    message: "View or Edit note",
+                    note: note
+                });
+            }
+        }).catch(err => {
+        return res.render("note", {
+            title: "Easy Notes",
+            message: "Oops!",
+            error: err.message
+        });
+    })
+};
+
+exports.save = (req, res) => {
+    if (!req.body) {
+        return res.render("save", {
+            title: "Easy Notes",
+            message: "Note cannot be empty."
+        });
+    }
+
+    noteService.create(req.body)
+        .then(note => {
+            res.render("save", {
+                title: "Easy Notes",
+                message: "New note created!",
+                note: note
+            });
+        }).catch(err => {
+        res.render("save", {
+            title: "Easy Notes",
+            message: "Some error occurred while creating your note.",
+            error: err.message
+        });
+    });
+};
+
+exports.new = (req, res) => {
+    res.render("new", {
+        title: "Easy Notes",
+        message: "Create a new note!",
+    });
+};

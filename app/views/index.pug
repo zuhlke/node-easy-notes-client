@@ -1,17 +1,19 @@
 extends layout
 
-block content   
-
+block content
     .container-fluid
-        form(method="GET")
-        h1=title
-        p=message
-        button(id="Refresh" class="button" onclick="location.reload(true)")="Refresh"
-        button(id="NewNote" class="button" onclick="editNote()")="New Note"
-        button(id="DeleteAll" class="button" onclick="deleteAllNotes()")="Delete All"
-        p
-        - var notes = [{title: "First Note", content: "something" }, { title: "Second Note", content: "something else" }];
-        each note in notes
-            p=note.title
-        else
-            p="There are no notes currently - go on, create one!"
+        fieldset
+            h1=title
+            p=message
+            form(method="GET")
+                button(id="Refresh" class="button")="Refresh"
+                a(id="NewNote" class="button" href="new")="New Note"
+                a(id="DeleteAll" class="button")="Delete All"
+                p
+                if error
+                    p= error
+                else
+                    each note in notes
+                        a(href="note/" + note._id) #{note.title}
+                    else
+                        p= "There are no notes!"
