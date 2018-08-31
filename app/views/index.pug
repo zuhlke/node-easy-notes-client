@@ -17,6 +17,6 @@ block content
                     ol
                     each note in notes
                         li
-                            a(href="note/" + note._id) #{note.title}
+                            a(href="editNote/" + note._id)=note.title
                     else
                         p="There are no notes!"

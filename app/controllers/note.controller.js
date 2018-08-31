@@ -2,6 +2,10 @@ const services = require('../services/note.service.js');
 const appConfig = require('../../config/server.app.config.js');
 const noteService = services.noteService(appConfig.url);
 
+/**
+ * Control functions to support the REST API
+ */
+
 exports.create = (req, res) => {
     if (!req.body) {
         return res.status(400).send({
@@ -96,6 +100,10 @@ exports.deleteOne = (req, res) => {
     });
 };
 
+/**
+ * The following control functions are not part of the REST API - they support browser forms
+ */
+
 exports.displayAll = (req, res) => {
     noteService.findAll()
     .then(notes => {
@@ -112,7 +120,7 @@ exports.displayAll = (req, res) => {
     })
 };
 
-exports.displayOne = (req, res) => {
+exports.editNote = (req, res) => {
     noteService.findOne(req.params.noteId)
     .then(note => {
         if (!note) {
