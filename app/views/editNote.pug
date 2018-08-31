@@ -3,16 +3,17 @@ extends layout
 block content
     .container-fluid
         fieldset
-            h1=title
-            form(method=method)
+            h1=headline
+            form(method="post" action="/save")
                 p="Note Title"
-                input(id="title" name="title")
+                input(type="text" id="title" name="title" placeholder="title" style="color:black; width:90%" value=note.title)
                 p
                 p="Note Body"
-                textarea(id="content" name="content")
+                textarea(id="content" name="content" placeholder="content" style="color:black; height:170px; width:90%")=note.content
                 p
-                button(id="Cancel" type="reset" class="button" onclick="location.back()")="Cancel"
-                button(id="Save" type="button" class="button" onclick="location.href='save'")="Save"
+                input(type="hidden" id="_id" name="_id" value=note._id)
+                button(id="Cancel" type="reset" class="button" onclick="history.back()")="Cancel"
+                button(id="Save" type="submit" class="button")="Save"
                 button(id="Reset" type="reset" class="button")="Reset"
                 button(id="Delete" type="button" class="button" onclick="location.href='confirmDelete'")="Delete"
                 p

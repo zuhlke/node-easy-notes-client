@@ -116,20 +116,19 @@ exports.displayOne = (req, res) => {
     noteService.findOne(req.params.noteId)
         .then(note => {
             if (!note) {
-                res.render("note", {
-                    title: "Easy Notes",
+                res.render("save", {
+                    headline: "Easy Notes",
                     message: "Note not found with id " + req.params.noteId
                 });
             } else {
-                res.render("note", {
-                    title: "Easy Notes",
-                    message: "View or Edit note",
+                res.render("editNote", {
+                    headline: "Easy Notes",
                     note: note
                 });
             }
         }).catch(err => {
-            return res.status(500).render("note", {
-                title: "Easy Notes",
+            return res.status(500).render("save", {
+                headline: "Easy Notes",
                 message: "Oops!",
                 error: err.message
             });
@@ -137,31 +136,52 @@ exports.displayOne = (req, res) => {
 };
 
 exports.save = (req, res) => {
-    if (!req.body) {
+    if (!(req.body && req.body.title)) {
         return res.render("save", {
-            title: "Easy Notes",
+            headline: "Easy Notes",
             message: "Note cannot be empty."
         });
     }
 
-    noteService.create(req.body)
+    if(req.body._id) {
+        noteService.update(req.body._id, req.body)
         .then(note => {
             res.render("save", {
-                title: "Easy Notes",
+                headline: "Easy Notes",
+                message: "Note updated!",
+                note: note
+            });
+        }).catch(err => {
+            res.status(500).render("save", {
+                headline: "Easy Notes",
+                message: "Some error occurred while saving your note.",
+                error: err.message
+            });
+        });
+    } else {
+        noteService.create(req.body)
+        .then(note => {
+            res.render("save", {
+                headline: "Easy Notes",
                 message: "New note created!",
                 note: note
             });
         }).catch(err => {
             res.status(500).render("save", {
-                title: "Easy Notes",
+                headline: "Easy Notes",
                 message: "Some error occurred while creating your note.",
                 error: err.message
             });
         });
+    }
 };
 
 exports.newNote = (req, res) => {
     res.render("editNote", {
-        title: "Easy Notes"
+        headline: "Easy Notes",
+        note: {
+            title: "",
+            content: ""
+        }
     });
 };
