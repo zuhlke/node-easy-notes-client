@@ -224,3 +224,24 @@ exports.okDeleteOne = (req, res) => {
         });
     });
 };
+
+exports.confirmDeleteAll = (req, res) => {
+    res.render("save", {
+        headline: "Easy Notes",
+        message: "Are you sure you wish to delete all your notes?",
+        okAction: "/deleteAll"
+    });
+};
+
+exports.okDeleteAll = (req, res) => {
+    noteService.deleteAll()
+    .then(response => {
+        res.redirect('/index');
+    }).catch(err => {
+        return res.status(500).render("save", {
+            headline: "Easy Notes",
+            message: "Oops!",
+            error: err.message
+        });
+    });
+};

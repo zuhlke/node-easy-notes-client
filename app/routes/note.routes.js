@@ -8,6 +8,8 @@ module.exports = (app) => {
     app.post('/save', notes.save);
     app.get('/confirmDeleteOne/:noteId', notes.confirmDeleteOne);
     app.get('/deleteOne/:noteId', notes.okDeleteOne);
+    app.get('/confirmDeleteAll', notes.confirmDeleteAll);
+    app.get('/deleteAll', notes.okDeleteAll);
     app.get('/notes/:noteId', notes.findOne);
     app.get('/note/:noteId', notes.displayOne);
     app.put('/notes/:noteId', notes.update);
