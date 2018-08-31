@@ -15,7 +15,8 @@ block content
                 button(id="Cancel" type="reset" class="button" onclick="history.back()")="Cancel"
                 button(id="Save" type="submit" class="button")="Save"
                 button(id="Reset" type="reset" class="button")="Reset"
-                button(id="Delete" type="button" class="button" onclick="location.href='confirmDelete'")="Delete"
+                if note._id
+                    button(id="Delete" type="button" class="button" onclick="location.href='/confirmDeleteOne/" + note._id + "'")="Delete"
                 p
                 if error
                     p=error

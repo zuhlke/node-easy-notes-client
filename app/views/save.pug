@@ -7,7 +7,7 @@ block content
             p
             p=message
             p
-            form(method="get" action="/index")
+            form(method="get" action=okAction || "/index")
                 if note
                     p="Your note reads:"
                     h2=note.title
@@ -16,4 +16,6 @@ block content
                 if error
                     p=error
                 p
+                if okAction
+                    button(id="Cancel" type="reset" class="button" onclick="history.back()")="Cancel"
                 button(id="OK" type="submit" class="button")="OK"

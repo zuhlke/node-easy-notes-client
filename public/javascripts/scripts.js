@@ -21,8 +21,3 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  ---------------------------------------------------------------------------------
-const services = require('../services/note.service.js');
-
-function getAllNotes() {
-    return [{title: 'Some text'}, {title: 'some other text'}];
-}

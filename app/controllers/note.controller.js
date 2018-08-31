@@ -10,36 +10,36 @@ exports.create = (req, res) => {
     }
 
     noteService.create(req.body)
-        .then(data => {
-            res.send({note: data});
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating your note."
-            });
+    .then(data => {
+        res.send({note: data});
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while creating your note."
         });
+    });
 };
 
 exports.findAll = (req, res) => {
     noteService.findAll()
-        .then(notes => {
-            res.send({notes: notes});
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving notes."
-            });
+    .then(notes => {
+        res.send({notes: notes});
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving notes."
         });
+    });
 };
 
 exports.findOne = (req, res) => {
     noteService.findOne(req.params.noteId)
-        .then(note => {
-            if (!note) {
-                return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
-                });
-            }
-            res.send({note: note});
-        }).catch(err => {
+    .then(note => {
+        if (!note) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.noteId
+            });
+        }
+        res.send({note: note});
+    }).catch(err => {
         return res.status(500).send({
             message: err.message
         });
@@ -54,42 +54,42 @@ exports.update = (req, res) => {
     }
 
     noteService.update(req.params.noteId, req.body)
-        .then(note => {
-            if (!note) {
-                return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
-                });
-            }
-            res.send({note: note});
-        }).catch(err => {
-            return res.status(500).send({
-                message: err.message
+    .then(note => {
+        if (!note) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.noteId
             });
+        }
+        res.send({note: note});
+    }).catch(err => {
+        return res.status(500).send({
+            message: err.message
         });
+    });
 };
 
 exports.deleteAll = (req, res) => {
     noteService.deleteAll()
-        .then(
-            res.send({message: "All notes deleted successfully."}))
-        .catch(err => {
-            return res.status(500).send({
-                message: err.message
-            });
+    .then(
+        res.send({message: "All notes deleted successfully."}))
+    .catch(err => {
+        return res.status(500).send({
+            message: err.message
         });
+    });
 };
 
 exports.deleteOne = (req, res) => {
     noteService.deleteOne(req.params.noteId)
-        .then(response => {
-            if (!response) {
-                return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
-                });
-            }
+    .then(response => {
+        if (!response) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.noteId
+            });
+        }
 
-            res.send({message: "Note deleted successfully."});
-        }).catch(err => {
+        res.send({message: "Note deleted successfully."});
+    }).catch(err => {
         return res.status(500).send({
             message: err.message
         });
@@ -97,42 +97,42 @@ exports.deleteOne = (req, res) => {
 };
 
 exports.displayAll = (req, res) => {
-  noteService.findAll()
-      .then(notes => {
-          res.render("index", {
-              title: 'Easy Notes',
-              message: 'Welcome to EasyNotes client. Take notes quickly. Organise and keep track of all your notes.',
-              notes: notes});
-      }).catch(err => {
-          res.status(500).render("index", {
-              title: "Easy Notes",
-              message: "Oops!",
-              error: err.message
-          });
-      })
+    noteService.findAll()
+    .then(notes => {
+        res.render("index", {
+            title: 'Easy Notes',
+            message: 'Welcome to EasyNotes client. Take notes quickly. Organise and keep track of all your notes.',
+            notes: notes});
+    }).catch(err => {
+        res.status(500).render("index", {
+            title: "Easy Notes",
+            message: "Oops!",
+            error: err.message
+        });
+    })
 };
 
 exports.displayOne = (req, res) => {
     noteService.findOne(req.params.noteId)
-        .then(note => {
-            if (!note) {
-                res.render("save", {
-                    headline: "Easy Notes",
-                    message: "Note not found with id " + req.params.noteId
-                });
-            } else {
-                res.render("editNote", {
-                    headline: "Easy Notes",
-                    note: note
-                });
-            }
-        }).catch(err => {
-            return res.status(500).render("save", {
+    .then(note => {
+        if (!note) {
+            res.render("save", {
                 headline: "Easy Notes",
-                message: "Oops!",
-                error: err.message
+                message: "Note not found with id " + req.params.noteId
             });
+        } else {
+            res.render("editNote", {
+                headline: "Easy Notes",
+                note: note
+            });
+        }
+    }).catch(err => {
+        return res.status(500).render("save", {
+            headline: "Easy Notes",
+            message: "Oops!",
+            error: err.message
         });
+    });
 };
 
 exports.save = (req, res) => {
@@ -159,6 +159,7 @@ exports.save = (req, res) => {
             });
         });
     } else {
+        delete req.body._id; // must be undefined, but edit form sets it to a blank string
         noteService.create(req.body)
         .then(note => {
             res.render("save", {
@@ -183,5 +184,43 @@ exports.newNote = (req, res) => {
             title: "",
             content: ""
         }
+    });
+};
+
+exports.confirmDeleteOne = (req, res) => {
+    noteService.findOne(req.params.noteId)
+    .then(note => {
+        if (!note) {
+            res.render("save", {
+                headline: "Easy Notes",
+                message: "Note not found with id " + req.params.noteId
+            });
+        } else {
+            res.render("save", {
+                headline: "Easy Notes",
+                message: "Are you sure you wish to delete the following note?",
+                okAction: "/deleteOne/" + note._id,
+                note: note
+            });
+        }
+    }).catch(err => {
+        return res.status(500).render("save", {
+            headline: "Easy Notes",
+            message: "Oops!",
+            error: err.message
+        });
+    });
+};
+
+exports.okDeleteOne = (req, res) => {
+    noteService.deleteOne(req.params.noteId)
+    .then(response => {
+        res.redirect('/index');
+    }).catch(err => {
+        return res.status(500).render("save", {
+            headline: "Easy Notes",
+            message: "Oops!",
+            error: err.message
+        });
     });
 };
