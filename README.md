@@ -18,6 +18,17 @@ pact broker or simply copied to the pacts folder on the provider side.
 
 ## Publishing to a local pact broker
 ### Set up a local pact broker
+
+```
+cd resources
+docker-compose up
+```
+Point your browser at http://localhost/
+
+That's all you need to do! Now jump forward to "Publishing a pact file to the local pact broker".
+
+The instructions below are for historical interest. They are superseded by the simplified docker-compose method shown above:
+
 see https://github.com/DiUS/pact_broker-docker and especially https://github.com/DiUS/pact_broker-docker/blob/master/POSTGRESQL.md 
 ```
 git clone https://github.com/DiUS/pact_broker-docker.git
